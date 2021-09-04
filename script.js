@@ -52,9 +52,9 @@ function displayBook() {
         let tempId = `book-${i}`;
         if (document.getElementById(tempId)) {}
         else {
-        let bookNode = document.createElement("div");
-        bookNode.classList.add("card");
-        bookNode.setAttribute("id", `book-${i}`);
+        let newCard = document.createElement("div");
+        newCard.classList.add("card");
+        newCard.setAttribute("id", `book-${i}`);
 
         let titleDisplay = document.createElement("p");
         titleDisplay.textContent  = `${myLibrary[i].title} (${myLibrary[i].year})`;
@@ -78,11 +78,11 @@ function displayBook() {
         smallerDisplay.textContent = `${ratingDisplay} | ${myLibrary[i].pages} pages | ${myLibrary[i].language} | ${statusDisplay}`;
         smallerDisplay.classList.add("smallerDisplay");
 
-        bookNode.appendChild(titleDisplay);
-        bookNode.appendChild(authorDisplay);
-        bookNode.appendChild(smallerDisplay);
+        newCard.appendChild(titleDisplay);
+        newCard.appendChild(authorDisplay);
+        newCard.appendChild(smallerDisplay);
 
-        gallery.appendChild(bookNode);
+        gallery.appendChild(newCard);
         }
     }
 }
@@ -102,3 +102,9 @@ displayBook();
         modal.style.display = "none";
     });
 })();
+
+//Lorsque je clique sur deleteBtn,
+// dans l'id de la card, récupère l'index
+// opère myLibrary.splice(index, 1);
+// refire displayBooks
+// change les id de chacun ???
