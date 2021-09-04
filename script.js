@@ -17,21 +17,14 @@ function addBook (title, year, author, pages, language, isRead, rating) {
 }
 
 function submitBook () {
-    const titleInput = document.getElementById("title-input");
-    const yearInput = document.getElementById("year-input");
-    const authorInput = document.getElementById("author-input");
-    const pagesInput = document.getElementById("pages-input");
-    const languageInput = document.getElementById("language-input");
-    const statusInput = document.getElementById("status-input");
-    const ratingInput = document.getElementById("rating-input");
+    title = document.getElementById("title-input").value;
+    year = document.getElementById("year-input").value;
+    author = document.getElementById("author-input").value;
+    pages = document.getElementById("pages-input").value;
+    language = document.getElementById("language-input").value;
+    isRead = document.getElementById("status-input").checked;
+    rating = document.getElementById("rating-input").value;
     const form = document.querySelector("form");
-    title = titleInput.value;
-    year = yearInput.value;
-    author = authorInput.value;
-    pages = pagesInput.value;
-    language = languageInput.value;
-    isRead = statusInput.checked;
-    rating = ratingInput.value;
     addBook(title, year, author, pages, language, isRead, rating);
     form.reset();
     displayBook();
