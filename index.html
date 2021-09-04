@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5,9 +6,87 @@
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="reset.css">
-    <title>Document</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    
+    <main>
+        <div class="sidebar">
+            <img class="avatar" src="avatar.jpg" alt="a young woman with dark brown curly hair holding a brown wooden framed light bulb">
+            <div class="text-content">
+                <h1>Hi, I'm Shayla ✨</h1>
+                <p>On this blog I'm sharing book and movie reviews. Welcome to my corner of the internet!</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="gallery">
+            </div>
+            <button id="append-button" class="append-button">⊕ Add a new book</button>
+            <form action="">
+                <label for="title-input">Title</label>
+                <input
+                  id="title-input"
+                  type="text"
+                  required
+                />
+
+                <label for="year-input">Year</label>
+                <input
+                  id="year-input"
+                  type="number"
+                  min="-3000"
+                  max="2021"
+                  required
+                />
+
+                <label for="author-input">Author</label>
+                <input
+                  id="author-input"
+                  type="text"
+                  required
+                />
+
+                <label for="pages-input">Pages</label>
+                <input id="pages-input"
+                  type="number"
+                  max="1000"
+                  required
+                />
+
+                <label for="language-input">Language</label>
+                <select id="language-input" name="language">
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+                    <option value="German">German</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="rating-input">Rating</label>
+                <input
+                  id="rating-input"
+                  type="number"
+                  min="0"
+                  max="5"
+                  step="1"
+                  required
+                />
+
+                <label for="status-input">Completed?
+                <input
+                  id="status-input"
+                  type="checkbox"
+                  name="reading-status"
+                  required
+                />Yes!</label>
+                <br>
+
+                <input
+                  id="submit-button"
+                  type="button"
+                  value="Submit book"
+                >
+            </form>
+        </div>
+    </main>
 </body>
 </html>
