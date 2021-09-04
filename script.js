@@ -1,5 +1,6 @@
 let myLibrary = [];
 const modal = document.getElementById("modal-box");
+const gallery = document.querySelector(".gallery");
 
 function Book (title, year, author, pages, language, isRead, rating) {
     this.title = title;
@@ -47,42 +48,53 @@ addBook("Harry Potter", 1997, "J. K. Rowling", 354, "English", false, 3);
 
 let i;
 function displayBook() {
-    const gallery = document.querySelector(".gallery");
     for (i = 0 ; i < myLibrary.length ; i++) {
         let tempId = `book-${i}`;
         if (document.getElementById(tempId)) {}
         else {
-        let newCard = document.createElement("div");
-        newCard.classList.add("card");
-        newCard.setAttribute("id", `book-${i}`);
+            let newCard = document.createElement("div");
+            newCard.classList.add("card");
+            newCard.setAttribute("id", `book-${i}`);
 
-        let titleDisplay = document.createElement("p");
-        titleDisplay.textContent  = `${myLibrary[i].title} (${myLibrary[i].year})`;
-        titleDisplay.classList.add("titleDisplay");
+            let titleDisplay = document.createElement("p");
+            titleDisplay.textContent  = `${myLibrary[i].title} (${myLibrary[i].year})`;
+            titleDisplay.classList.add("titleDisplay");
 
-        let authorDisplay = document.createElement("p");
-        authorDisplay.textContent = `by ${myLibrary[i].author}`;
-        authorDisplay.classList.add("authorDisplay");
+            let authorDisplay = document.createElement("p");
+            authorDisplay.textContent = `by ${myLibrary[i].author}`;
+            authorDisplay.classList.add("authorDisplay");
 
-        let statusDisplay;
-        myLibrary[i].isRead ?
-           statusDisplay = "Read" :
-           statusDisplay = "Currently reading";
+            let statusDisplay;
+            myLibrary[i].isRead ?
+            statusDisplay = "Read" :
+            statusDisplay = "Currently reading";
 
-        let ratingDisplay = "";
-        for (count = 0; count < myLibrary[i].rating; count++) {
-            ratingDisplay += '★';
-        }
+            let ratingDisplay = "";
+            for (count = 0; count < myLibrary[i].rating; count++) {
+                ratingDisplay += "★";
+            }
 
-        let smallerDisplay = document.createElement("p");
-        smallerDisplay.textContent = `${ratingDisplay} | ${myLibrary[i].pages} pages | ${myLibrary[i].language} | ${statusDisplay}`;
-        smallerDisplay.classList.add("smallerDisplay");
+            let smallerDisplay = document.createElement("p");
+            smallerDisplay.textContent = `${ratingDisplay} | ${myLibrary[i].pages} pages | ${myLibrary[i].language} | ${statusDisplay}`;
+            smallerDisplay.classList.add("smallerDisplay");
 
-        newCard.appendChild(titleDisplay);
-        newCard.appendChild(authorDisplay);
-        newCard.appendChild(smallerDisplay);
+            let cardContent = document.createElement("div");
+            cardContent.classList.add("cardContent");
+            cardContent.appendChild(titleDisplay);
+            cardContent.appendChild(authorDisplay);
+            cardContent.appendChild(smallerDisplay);
+            newCard.appendChild(cardContent);
 
-        gallery.appendChild(newCard);
+            let cardOptions = document.createElement("div");
+            cardOptions.classList.add("cardOptions");
+            const deleteIcon = document.createElement("img");
+            deleteIcon.setAttribute("src", "deleteIcon.svg");
+            deleteIcon.setAttribute("id", `${i}`);
+            deleteIcon.classList.add("delete-icon");
+            cardOptions.appendChild(deleteIcon);
+            newCard.appendChild(cardOptions);
+
+            gallery.appendChild(newCard);
         }
     }
 }
@@ -103,8 +115,15 @@ displayBook();
     });
 })();
 
-//Lorsque je clique sur deleteBtn,
-// dans l'id de la card, récupère l'index
-// opère myLibrary.splice(index, 1);
-// refire displayBooks
-// change les id de chacun ???
+let deleteIcons = document.querySelectorAll(".delete-icon");
+deleteIcons = Array.from(deleteIcons);
+deleteIcons.forEach(icon => {
+    const index = icon.id;
+    icon.addEventListener("click", () => {
+        myLibrary.splice(index, 1);
+        displayBook();
+        const cardId = `book-${index}`;
+        const cardNode = document.getElementById(cardId);
+        gallery.removeChild(cardNode);
+    });
+});

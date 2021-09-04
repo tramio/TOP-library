@@ -83,9 +83,9 @@ main {
 
         .card {
             display: flex;
-            flex-flow: column wrap;
-            justify-content: flex-start;
-            width: max-content;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            width: 70%;
             margin: 10px;
             padding: 15px;
             background-color: #c9b7a6;
