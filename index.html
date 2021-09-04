@@ -21,71 +21,81 @@
         <div class="content">
             <div class="gallery">
             </div>
-            <button id="append-button" class="append-button">⊕ Add a new book</button>
-            <form action="">
-                <label for="title-input">Title</label>
-                <input
-                  id="title-input"
-                  type="text"
-                  required
-                />
+            <button id="show-button" class="button gallery-button">⊕ Add a new book</button>
+            <div id="modal-box" class="modal-div">
+              <form action="">
+                  <label for="title-input">Title</label>
+                  <input
+                    id="title-input"
+                    type="text"
+                    required
+                  />
+                  <br>
 
-                <label for="year-input">Year</label>
-                <input
-                  id="year-input"
-                  type="number"
-                  min="-3000"
-                  max="2021"
-                  required
-                />
+                  <label for="year-input">Year</label>
+                  <input
+                    id="year-input"
+                    type="number"
+                    min="-3000"
+                    max="2021"
+                    required
+                  />
+                  <br>
 
-                <label for="author-input">Author</label>
-                <input
-                  id="author-input"
-                  type="text"
-                  required
-                />
+                  <label for="author-input">Author</label>
+                  <input
+                    id="author-input"
+                    type="text"
+                    required
+                  />
+                  <br>
 
-                <label for="pages-input">Pages</label>
-                <input id="pages-input"
-                  type="number"
-                  max="1000"
-                  required
-                />
+                  <label for="pages-input">Pages</label>
+                  <input id="pages-input"
+                    type="number"
+                    max="1000"
+                    required
+                  />
+                  <br>
 
-                <label for="language-input">Language</label>
-                <select id="language-input" name="language">
-                    <option value="English">English</option>
-                    <option value="French">French</option>
-                    <option value="German">German</option>
-                    <option value="Other">Other</option>
-                </select>
+                  <label for="language-input">Language</label>
+                  <select id="language-input" name="language">
+                      <option value="English">English</option>
+                      <option value="French">French</option>
+                      <option value="German">German</option>
+                      <option value="Other">Other</option>
+                  </select>
+                  <br>
 
-                <label for="rating-input">Rating</label>
-                <input
-                  id="rating-input"
-                  type="number"
-                  min="0"
-                  max="5"
-                  step="1"
-                  required
-                />
+                  <label for="rating-input">Rating</label>
+                  <input
+                    id="rating-input"
+                    type="number"
+                    min="0"
+                    max="5"
+                    step="1"
+                    required
+                  />
+                  <br>
 
-                <label for="status-input">Completed?
-                <input
-                  id="status-input"
-                  type="checkbox"
-                  name="reading-status"
-                  required
-                />Yes!</label>
-                <br>
+                  <label for="status-input">Completed?
+                  <input
+                    id="status-input"
+                    type="checkbox"
+                    name="reading-status"
+                    required
+                  />Yes!</label>
+                  <br>
 
-                <input
-                  id="submit-button"
-                  type="button"
-                  value="Submit book"
-                >
-            </form>
+                  <input
+                    id="submit-button"
+                    class="button modal-button"
+                    type="button"
+                    value="Submit book"
+                  >
+              </form>
+              <button id="hide-button" class="button modal-button">Close form</button>
+            </div>
         </div>
     </main>
 </body>

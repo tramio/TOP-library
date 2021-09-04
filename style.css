@@ -91,7 +91,18 @@ main {
             border-radius: 20px;
         }
 
-    .append-button {
+            .titleDisplay {
+                font-size: 1.4em;
+                font-weight: 700;
+            }
+            
+            .smallerDisplay {
+                font-size: 0.8em;
+                line-height: 1.4em;
+            }
+
+/* Buttons */
+    .button {
         background-color: #977466;
         height: 50px;
         width: 100%;
@@ -101,27 +112,31 @@ main {
         cursor: pointer;
     }
 
-    .append-button:hover {
+    .button:hover {
         background-color: #c6aa9f;
     }
 
-    .append-button:active {
+    .button:active {
         background-color: #947f76;
     }
 
-.titleDisplay {
-    font-size: 1.4em;
-    font-weight: 700;
-}
+    .modal-button {
+        height: 2em;
+    }
 
-.smallerDisplay {
-    font-size: 0.8em;
-    line-height: 1.4em;
-}
+/* Form */
+    .modal-div {
+        display: none;
+        position: fixed;
+        background-color: #eae9e5;
+        width: 300px;
+        height: min-content;
+        padding: 15px;
+    }
 
-input {
-    width: 100px;
-}
+    input {
+        width: 100px;
+    }
 
 /* Hide number input arrows */
     /* Chrome, Safari, Edge, Opera */

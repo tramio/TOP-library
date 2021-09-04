@@ -1,13 +1,5 @@
 let myLibrary = [];
-const form = document.querySelector("form");
-const titleInput = document.getElementById("title-input");
-const yearInput = document.getElementById("year-input");
-const authorInput = document.getElementById("author-input");
-const pagesInput = document.getElementById("pages-input");
-const languageInput = document.getElementById("language-input");
-const statusInput = document.getElementById("status-input");
-const ratingInput = document.getElementById("rating-input");
-const gallery = document.querySelector(".gallery");
+const modal = document.getElementById("modal-box");
 
 function Book (title, year, author, pages, language, isRead, rating) {
     this.title = title;
@@ -25,6 +17,14 @@ function addBook (title, year, author, pages, language, isRead, rating) {
 }
 
 function submitBook () {
+    const titleInput = document.getElementById("title-input");
+    const yearInput = document.getElementById("year-input");
+    const authorInput = document.getElementById("author-input");
+    const pagesInput = document.getElementById("pages-input");
+    const languageInput = document.getElementById("language-input");
+    const statusInput = document.getElementById("status-input");
+    const ratingInput = document.getElementById("rating-input");
+    const form = document.querySelector("form");
     title = titleInput.value;
     year = yearInput.value;
     author = authorInput.value;
@@ -34,6 +34,14 @@ function submitBook () {
     rating = ratingInput.value;
     addBook(title, year, author, pages, language, isRead, rating);
     form.reset();
+    displayBook();
+    displaySuccess();
+}
+
+function displaySuccess () {
+    const successMessage = document.createElement("p");
+    successMessage.textContent = "Your reco was successfully added to my collection!";
+    modal.appendChild(successMessage);
 }
 
 (function enableSubmissions () {
@@ -44,10 +52,16 @@ function submitBook () {
 addBook("Lord of The Rings", 1954, "J. R. R. Tolkien", 523, "English", true, 4);
 addBook("Harry Potter", 1997, "J. K. Rowling", 354, "English", false, 3);
 
-(function displayBook() {
-    for (let i = 0 ; i < myLibrary.length ; i++) {
+let i;
+function displayBook() {
+    const gallery = document.querySelector(".gallery");
+    for (i = 0 ; i < myLibrary.length ; i++) {
+        let tempId = `book-${i}`;
+        if (document.getElementById(tempId)) {}
+        else {
         let bookNode = document.createElement("div");
         bookNode.classList.add("card");
+        bookNode.setAttribute("id", `book-${i}`);
 
         let titleDisplay = document.createElement("p");
         titleDisplay.textContent  = `${myLibrary[i].title} (${myLibrary[i].year})`;
@@ -76,5 +90,22 @@ addBook("Harry Potter", 1997, "J. K. Rowling", 354, "English", false, 3);
         bookNode.appendChild(smallerDisplay);
 
         gallery.appendChild(bookNode);
+        }
     }
-})()
+}
+
+displayBook();
+
+(function showForm () {
+    const showFormBtn = document.getElementById("show-button");
+    showFormBtn.addEventListener("click", () => {
+        modal.style.display = "block";
+    });
+})();
+
+(function hideForm () {
+    const hideFormBtn = document.getElementById("hide-button");
+    hideFormBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+})();
