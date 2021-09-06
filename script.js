@@ -90,6 +90,7 @@ function displayBook() {
             const deleteIcon = document.createElement("img");
             deleteIcon.setAttribute("src", "deleteIcon.svg");
             deleteIcon.setAttribute("id", `${i}`);
+            deleteIcon.setAttribute("data-value", i);
             deleteIcon.classList.add("delete-icon");
             cardOptions.appendChild(deleteIcon);
             newCard.appendChild(cardOptions);
@@ -115,15 +116,14 @@ displayBook();
     });
 })();
 
-let deleteIcons = document.querySelectorAll(".delete-icon");
-deleteIcons = Array.from(deleteIcons);
-deleteIcons.forEach(icon => {
-    const index = icon.id;
-    icon.addEventListener("click", () => {
-        myLibrary.splice(index, 1);
-        displayBook();
-        const cardId = `book-${index}`;
-        const cardNode = document.getElementById(cardId);
-        gallery.removeChild(cardNode);
+(function removeCard () {
+    let deleteIcons = document.querySelectorAll(".delete-icon");
+    Array.from(deleteIcons).forEach(icon => {
+        const cardIndex = icon.dataset.value;
+        const cardNode = document.getElementById(`book-${cardIndex}`);
+        icon.addEventListener("click", () => {
+            myLibrary.splice(cardIndex, 1);
+            gallery.removeChild(cardNode);
+        });
     });
-});
+})();
