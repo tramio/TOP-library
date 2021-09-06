@@ -46,16 +46,19 @@ function displaySuccess () {
 addBook("Lord of The Rings", 1954, "J. R. R. Tolkien", 523, "English", true, 4);
 addBook("Harry Potter", 1997, "J. K. Rowling", 354, "English", false, 3);
 
-let i;
 function displayBook() {
-    for (i = 0 ; i < myLibrary.length ; i++) {
+    for (let i = 0 ; i < myLibrary.length ; i++) {
         let tempId = `book-${i}`;
         if (document.getElementById(tempId)) {}
         else {
+            // Main container
             let newCard = document.createElement("div");
             newCard.classList.add("card");
             newCard.setAttribute("id", `book-${i}`);
+            newCard.setAttribute("data-value", i);
+            gallery.appendChild(newCard);
 
+            // Content
             let titleDisplay = document.createElement("p");
             titleDisplay.textContent  = `${myLibrary[i].title} (${myLibrary[i].year})`;
             titleDisplay.classList.add("titleDisplay");
@@ -66,8 +69,8 @@ function displayBook() {
 
             let statusDisplay;
             myLibrary[i].isRead ?
-            statusDisplay = "Read" :
-            statusDisplay = "Currently reading";
+              statusDisplay = "Read" :
+              statusDisplay = "Currently reading";
 
             let ratingDisplay = "";
             for (count = 0; count < myLibrary[i].rating; count++) {
@@ -78,24 +81,26 @@ function displayBook() {
             smallerDisplay.textContent = `${ratingDisplay} | ${myLibrary[i].pages} pages | ${myLibrary[i].language} | ${statusDisplay}`;
             smallerDisplay.classList.add("smallerDisplay");
 
+            // Content subcontainer
             let cardContent = document.createElement("div");
             cardContent.classList.add("cardContent");
             cardContent.appendChild(titleDisplay);
             cardContent.appendChild(authorDisplay);
             cardContent.appendChild(smallerDisplay);
             newCard.appendChild(cardContent);
-
+                        
+            // Actions subcontainer
             let cardOptions = document.createElement("div");
             cardOptions.classList.add("cardOptions");
             const deleteIcon = document.createElement("img");
+            newCard .appendChild(cardOptions)
+                    .appendChild(deleteIcon);
+
+            // Actions
+            deleteIcon.classList.add("delete-icon");
             deleteIcon.setAttribute("src", "deleteIcon.svg");
             deleteIcon.setAttribute("id", `${i}`);
             deleteIcon.setAttribute("data-value", i);
-            deleteIcon.classList.add("delete-icon");
-            cardOptions.appendChild(deleteIcon);
-            newCard.appendChild(cardOptions);
-
-            gallery.appendChild(newCard);
         }
     }
 }
@@ -117,13 +122,23 @@ displayBook();
 })();
 
 (function removeCard () {
-    let deleteIcons = document.querySelectorAll(".delete-icon");
+    const deleteIcons = document.querySelectorAll(".delete-icon");
     Array.from(deleteIcons).forEach(icon => {
         const cardIndex = icon.dataset.value;
         const cardNode = document.getElementById(`book-${cardIndex}`);
         icon.addEventListener("click", () => {
             myLibrary.splice(cardIndex, 1);
             gallery.removeChild(cardNode);
-        });
+            resetCardAndIconValues();
+        });  
     });
 })();
+
+function resetCardAndIconValues () {
+    const cards = Array.from(document.querySelectorAll(".card"));
+    const icons = Array.from(document.querySelectorAll(".delete-icon"));
+    for (let i = 0; i < myLibrary.length; i++) {
+        cards[i].dataset.value = i;
+        icons[i].dataset.value = i;
+    }
+}
