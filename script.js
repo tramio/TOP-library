@@ -2,7 +2,7 @@ let myLibrary = [];
 const modal = document.getElementById("modal-box");
 const gallery = document.querySelector(".gallery");
 
-function Book (title, year, author, pages, language, isRead, rating) {
+function Book(title, year, author, pages, language, isRead, rating) {
     this.title = title;
     this.year = year;
     this.author = author;
@@ -12,11 +12,8 @@ function Book (title, year, author, pages, language, isRead, rating) {
     this.rating = rating;
 }
 
-function addBookToLibrary (title, year, author, pages, language, isRead, rating) {
-    // a new book object is created
-    let newBook = new Book(title, year, author, pages, language, isRead, rating);
-    // it is pushed to the library
-    myLibrary.push(newBook);
+function addBookToLibrary (book) {
+    myLibrary.push(book);
 }
 
 function getValueOf(elementId) {
@@ -32,7 +29,8 @@ function submitBook () {
     language = getValueOf("language-input");
     isRead = document.getElementById("status-input").checked;
     rating = getValueOf("rating-input");
-    addBookToLibrary(title, year, author, pages, language, isRead, rating);
+    const newBook = new Book(title, year, author, pages, language, isRead, rating);
+    addBookToLibrary(newBook);
     const form = document.querySelector("form");
     form.reset();
     displayBook();
