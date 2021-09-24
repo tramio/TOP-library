@@ -12,39 +12,48 @@ function Book (title, year, author, pages, language, isRead, rating) {
     this.rating = rating;
 }
 
-function addBook (title, year, author, pages, language, isRead, rating) {
+function addBookToLibrary (title, year, author, pages, language, isRead, rating) {
+    // a new book object is created
     let newBook = new Book(title, year, author, pages, language, isRead, rating);
+    // it is pushed to the library
     myLibrary.push(newBook);
 }
 
-function submitBook () {
-    title = document.getElementById("title-input").value;
-    year = document.getElementById("year-input").value;
-    author = document.getElementById("author-input").value;
-    pages = document.getElementById("pages-input").value;
-    language = document.getElementById("language-input").value;
-    isRead = document.getElementById("status-input").checked;
-    rating = document.getElementById("rating-input").value;
-    const form = document.querySelector("form");
-    addBook(title, year, author, pages, language, isRead, rating);
-    form.reset();
-    displayBook();
-    displaySuccess();
+function getValueOf(elementId) {
+    const elementValue = document.getElementById(elementId).value;
+    return elementValue;
 }
 
-function displaySuccess () {
-    const successMessage = document.createElement("p");
-    successMessage.textContent = "Your reco was successfully added to my collection!";
-    modal.appendChild(successMessage);
+function submitBook () {
+    title = getValueOf("title-input");
+    year = getValueOf("year-input");
+    author = getValueOf("author-input");
+    pages = getValueOf("pages-input");
+    language = getValueOf("language-input");
+    isRead = document.getElementById("status-input").checked;
+    rating = getValueOf("rating-input");
+    addBookToLibrary(title, year, author, pages, language, isRead, rating);
+    const form = document.querySelector("form");
+    form.reset();
+    displayBook();
+    displaySuccessMessage();
 }
+
+function displaySuccessMessage () {
+    if (successMessageExists()) {
+        const successMessage = document.createElement("p");
+        successMessage.classList.toggle("success");
+        successMessage.textContent = "Your reco was successfully added to my collection!";
+        modal.appendChild(successMessage);
+    }
+}
+
+// create successMessageExists
 
 (function enableSubmissions () {
     const submitButton = document.getElementById("submit-button");
     submitButton.addEventListener("click", submitBook);
 })();
-
-addBook("Lord of The Rings", 1954, "J. R. R. Tolkien", 523, "English", true, 4);
-addBook("Harry Potter", 1997, "J. K. Rowling", 354, "English", false, 3);
 
 function displayBook() {
     for (let i = 0 ; i < myLibrary.length ; i++) {
@@ -97,10 +106,20 @@ function displayBook() {
                     .appendChild(deleteIcon);
 
             // Actions
-            deleteIcon.classList.add("delete-icon");
-            deleteIcon.setAttribute("src", "deleteIcon.svg");
-            deleteIcon.setAttribute("id", `${i}`);
-            deleteIcon.setAttribute("data-value", i);
+            (function createDeleteIcon() {
+                deleteIcon.classList.add("delete-icon");
+                deleteIcon.setAttribute("src", "deleteIcon.svg");
+                deleteIcon.setAttribute("id", `${i}`);
+                deleteIcon.setAttribute("data-value", i);
+            })();
+
+            const cardIndex = deleteIcon.dataset.value;
+            const cardNode = document.getElementById(`book-${cardIndex}`);
+            deleteIcon.addEventListener("click", () => {
+                removeBookFromLibrary(cardIndex);
+                removeBookFromDisplay(cardNode);
+                reassignBookIndexesToDomElements();
+            });
         }
     }
 }
@@ -118,23 +137,27 @@ displayBook();
     const hideFormBtn = document.getElementById("hide-button");
     hideFormBtn.addEventListener("click", () => {
         modal.style.display = "none";
+        const successMessage = document.querySelector(".success");
+        removeFromModalIfHasClassSuccess(successMessage);
     });
 })();
 
-(function removeCard () {
-    const deleteIcons = document.querySelectorAll(".delete-icon");
-    Array.from(deleteIcons).forEach(icon => {
-        const cardIndex = icon.dataset.value;
-        const cardNode = document.getElementById(`book-${cardIndex}`);
-        icon.addEventListener("click", () => {
-            myLibrary.splice(cardIndex, 1);
-            gallery.removeChild(cardNode);
-            resetCardAndIconValues();
-        });  
-    });
-})();
+function removeFromModalIfHasClassSuccess(element) {
+    if (element.classList.contains("success")) {
+        element.classList.toggle("success");
+        modal.removeChild(element);
+    }
+}
 
-function resetCardAndIconValues () {
+function removeBookFromLibrary(index) {
+    myLibrary.splice(index, 1);
+}
+
+function removeBookFromDisplay(node) {
+    gallery.removeChild(node);
+}
+
+function reassignBookIndexesToDomElements(indexOfRemovedBook) {
     const cards = Array.from(document.querySelectorAll(".card"));
     const icons = Array.from(document.querySelectorAll(".delete-icon"));
     for (let i = 0; i < myLibrary.length; i++) {
