@@ -34,19 +34,7 @@ function submitBook () {
     const form = document.querySelector("form");
     form.reset();
     displayBook();
-    displaySuccessMessage();
 }
-
-function displaySuccessMessage () {
-    if (successMessageExists()) {
-        const successMessage = document.createElement("p");
-        successMessage.classList.toggle("success");
-        successMessage.textContent = "Your reco was successfully added to my collection!";
-        modal.appendChild(successMessage);
-    }
-}
-
-// create successMessageExists
 
 (function enableSubmissions () {
     const submitButton = document.getElementById("submit-button");
@@ -135,16 +123,11 @@ displayBook();
     const hideFormBtn = document.getElementById("hide-button");
     hideFormBtn.addEventListener("click", () => {
         modal.style.display = "none";
-        const successMessage = document.querySelector(".success");
-        removeFromModalIfHasClassSuccess(successMessage);
     });
 })();
 
-function removeFromModalIfHasClassSuccess(element) {
-    if (element.classList.contains("success")) {
-        element.classList.toggle("success");
-        modal.removeChild(element);
-    }
+function hideElement(element) {
+    element.style.display = "none";
 }
 
 function removeBookFromLibrary(index) {
