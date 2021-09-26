@@ -1,4 +1,5 @@
 let myLibrary = [];
+let idOfNewBook = 0;
 const modal = document.getElementById("modal-box");
 const gallery = document.querySelector(".gallery");
 
@@ -47,16 +48,21 @@ function resetForm() {
     });
 })();
 
-(function getIndexOfNewBook() {
-    return indexOfNewBook = myLibrary.length - 1;
-})()
+function getvalueOfNewBook() {
+    return valueOfNewBook = myLibrary.length - 1;
+}
+
+function setIdOfNewBook() {
+    idOfNewBook++;
+}
 
 function createAndDisplayCard(book) {
+    getvalueOfNewBook();
     // Container
     const newCard = document.createElement("div");
     newCard.classList.add("card");
-    newCard.setAttribute("id", `book-${indexOfNewBook}`);
-    newCard.setAttribute("data-value", indexOfNewBook);
+    newCard.setAttribute("id", `book-${idOfNewBook}`);
+    newCard.setAttribute("data-value", valueOfNewBook);
 
     // Main subcontainer
     const cardMain = document.createElement("div");
@@ -97,19 +103,22 @@ function createAndDisplayCard(book) {
     (function createDeleteIcon() {
         deleteIcon.classList.add("delete-icon");
         deleteIcon.setAttribute("src", "deleteIcon.svg");
-        deleteIcon.setAttribute("id", indexOfNewBook);
-        deleteIcon.setAttribute("data-value", indexOfNewBook);
+        deleteIcon.setAttribute("id", idOfNewBook);
+        deleteIcon.setAttribute("data-value", valueOfNewBook);
     })();
 
     (function enableDeleteIcon() {
-        const indexOfNodeToDelete = deleteIcon.dataset.value;
         deleteIcon.addEventListener("click", () => {
-            const nodeToDelete = document.getElementById(`book-${indexOfNodeToDelete}`);
-             removeBookFromLibrary(indexOfNodeToDelete);
-             removeBookFromDisplay(nodeToDelete);
+            const libraryIndex = deleteIcon.dataset.value;
+            const cardValue = deleteIcon.dataset.value;
+            const card = document.querySelector(`[data-value="${cardValue}"]`);
+             removeBookFromLibrary(libraryIndex);
+             removeBookFromDisplay(card);
              reassignBookIndexesToDomElements();
         });
     })();
+
+    setIdOfNewBook();
 
     gallery.appendChild(newCard);
     newCard.appendChild(cardMain);
