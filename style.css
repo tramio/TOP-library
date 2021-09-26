@@ -92,12 +92,12 @@ main {
             border-radius: 20px;
         }
 
-            .titleDisplay {
+            .cardH1 {
                 font-size: 1.4em;
                 font-weight: 700;
             }
             
-            .smallerDisplay {
+            .cardContent {
                 font-size: 0.8em;
                 line-height: 1.4em;
             }

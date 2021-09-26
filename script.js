@@ -12,16 +12,12 @@ function Book(title, year, author, pages, language, isRead, rating) {
     this.rating = rating;
 }
 
-function addBookToLibrary (book) {
-    myLibrary.push(book);
-}
-
 function getValueOf(elementId) {
     const elementValue = document.getElementById(elementId).value;
     return elementValue;
 }
 
-function submitBook () {
+function createBook() {
     title = getValueOf("title-input");
     year = getValueOf("year-input");
     author = getValueOf("author-input");
@@ -29,97 +25,109 @@ function submitBook () {
     language = getValueOf("language-input");
     isRead = document.getElementById("status-input").checked;
     rating = getValueOf("rating-input");
-    const newBook = new Book(title, year, author, pages, language, isRead, rating);
-    addBookToLibrary(newBook);
+    return newBook = new Book(title, year, author, pages, language, isRead, rating);
+}
+
+function addBookToLibrary (book) {
+    myLibrary.push(book);
+}
+
+function resetForm() {
     const form = document.querySelector("form");
     form.reset();
-    displayBook();
 }
 
-(function enableSubmissions () {
+(function enableSubmissions() {
     const submitButton = document.getElementById("submit-button");
-    submitButton.addEventListener("click", submitBook);
+    submitButton.addEventListener("click", () => {
+        createBook();
+        addBookToLibrary(newBook);
+        createAndDisplayCard(newBook);
+        resetForm();
+    });
 })();
 
-function displayBook() {
-    for (let i = 0 ; i < myLibrary.length ; i++) {
-        let tempId = `book-${i}`;
-        if (document.getElementById(tempId)) {}
-        else {
-            // Main container
-            let newCard = document.createElement("div");
-            newCard.classList.add("card");
-            newCard.setAttribute("id", `book-${i}`);
-            newCard.setAttribute("data-value", i);
-            gallery.appendChild(newCard);
+(function getIndexOfNewBook() {
+    return indexOfNewBook = myLibrary.length - 1;
+})()
 
-            // Content
-            let titleDisplay = document.createElement("p");
-            titleDisplay.textContent  = `${myLibrary[i].title} (${myLibrary[i].year})`;
-            titleDisplay.classList.add("titleDisplay");
+function createAndDisplayCard(book) {
+    // Container
+    const newCard = document.createElement("div");
+    newCard.classList.add("card");
+    newCard.setAttribute("id", `book-${indexOfNewBook}`);
+    newCard.setAttribute("data-value", indexOfNewBook);
 
-            let authorDisplay = document.createElement("p");
-            authorDisplay.textContent = `by ${myLibrary[i].author}`;
-            authorDisplay.classList.add("authorDisplay");
+    // Main subcontainer
+    const cardMain = document.createElement("div");
+    cardMain.classList.add("cardMain");
 
-            let statusDisplay;
-            myLibrary[i].isRead ?
-              statusDisplay = "Read" :
-              statusDisplay = "Currently reading";
+    // Title
+    const cardH1 = document.createElement("p");
+    cardH1.textContent  = `${book.title} (${book.year})`;
+    cardH1.classList.add("cardH1");
 
-            let ratingDisplay = "";
-            for (count = 0; count < myLibrary[i].rating; count++) {
-                ratingDisplay += "★";
-            }
+    // Subtitle
+    const cardH2 = document.createElement("p");
+    cardH2.textContent = `by ${book.author}`;
+    cardH2.classList.add("cardH2");
 
-            let smallerDisplay = document.createElement("p");
-            smallerDisplay.textContent = `${ratingDisplay} | ${myLibrary[i].pages} pages | ${myLibrary[i].language} | ${statusDisplay}`;
-            smallerDisplay.classList.add("smallerDisplay");
+    // Content pre-formatting
+    let statusDisplay;
+    book.isRead ?
+        statusDisplay = "Read" :
+        statusDisplay = "Currently reading";
 
-            // Content subcontainer
-            let cardContent = document.createElement("div");
-            cardContent.classList.add("cardContent");
-            cardContent.appendChild(titleDisplay);
-            cardContent.appendChild(authorDisplay);
-            cardContent.appendChild(smallerDisplay);
-            newCard.appendChild(cardContent);
-                        
-            // Actions subcontainer
-            let cardOptions = document.createElement("div");
-            cardOptions.classList.add("cardOptions");
-            const deleteIcon = document.createElement("img");
-            newCard .appendChild(cardOptions)
-                    .appendChild(deleteIcon);
-
-            // Actions
-            (function createDeleteIcon() {
-                deleteIcon.classList.add("delete-icon");
-                deleteIcon.setAttribute("src", "deleteIcon.svg");
-                deleteIcon.setAttribute("id", `${i}`);
-                deleteIcon.setAttribute("data-value", i);
-            })();
-
-            const cardIndex = deleteIcon.dataset.value;
-            const cardNode = document.getElementById(`book-${cardIndex}`);
-            deleteIcon.addEventListener("click", () => {
-                removeBookFromLibrary(cardIndex);
-                removeBookFromDisplay(cardNode);
-                reassignBookIndexesToDomElements();
-            });
-        }
+    let ratingDisplay = "";
+    for (count = 0; count < book.rating; count++) {
+        ratingDisplay += "★";
     }
+
+    // Content
+    const cardContent = document.createElement("p");
+    cardContent.textContent = `${ratingDisplay} | ${book.pages} pages | ${book.language} | ${statusDisplay}`;
+    cardContent.classList.add("cardContent");
+
+    // Actions subcontainer
+    const cardOptions = document.createElement("div");
+    cardOptions.classList.add("cardOptions");
+    const deleteIcon = document.createElement("img");
+
+    // Actions
+    (function createDeleteIcon() {
+        deleteIcon.classList.add("delete-icon");
+        deleteIcon.setAttribute("src", "deleteIcon.svg");
+        deleteIcon.setAttribute("id", indexOfNewBook);
+        deleteIcon.setAttribute("data-value", indexOfNewBook);
+    })();
+
+    (function enableDeleteIcon() {
+        const indexOfNodeToDelete = deleteIcon.dataset.value;
+        deleteIcon.addEventListener("click", () => {
+            const nodeToDelete = document.getElementById(`book-${indexOfNodeToDelete}`);
+             removeBookFromLibrary(indexOfNodeToDelete);
+             removeBookFromDisplay(nodeToDelete);
+             reassignBookIndexesToDomElements();
+        });
+    })();
+
+    gallery.appendChild(newCard);
+    newCard.appendChild(cardMain);
+    cardMain.appendChild(cardH1);
+    cardMain.appendChild(cardH2);
+    cardMain.appendChild(cardContent);
+    newCard .appendChild(cardOptions)
+            .appendChild(deleteIcon);
 }
 
-displayBook();
-
-(function showForm () {
+(function showForm() {
     const showFormBtn = document.getElementById("show-button");
     showFormBtn.addEventListener("click", () => {
         modal.style.display = "block";
     });
 })();
 
-(function hideForm () {
+(function hideForm() {
     const hideFormBtn = document.getElementById("hide-button");
     hideFormBtn.addEventListener("click", () => {
         modal.style.display = "none";
