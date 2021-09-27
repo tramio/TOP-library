@@ -27,14 +27,55 @@ function getValueOf(elementId) {
 }
 
 function createBook() {
-    title = getValueOf("title-input");
-    year = getValueOf("year-input");
-    author = getValueOf("author-input");
-    pages = getValueOf("pages-input");
-    language = getValueOf("language-input");
-    isRead = document.getElementById("status-input").checked;
-    rating = getValueOf("rating-input");
     return newBook = new Book(title, year, author, pages, language, isRead, rating);
+}
+
+function getTitle() {
+    return title = getValueOf("title-input");
+}
+
+function getYear() {
+    return year = getValueOf("year-input");
+}
+
+function getAuthor() {
+    return author = getValueOf("author-input");
+}
+
+function getPages() {
+    return pages = getValueOf("pages-input");
+}
+
+function getLanguage() {
+    return language = getValueOf("language-input");
+}
+
+function getIsRead() {
+    return isRead = document.getElementById("status-input").checked;
+}
+
+function getRating() {
+    return rating = getValueOf("rating-input");
+}
+
+function allFieldsAreFilled() {
+    getTitle();
+    getYear();
+    getAuthor();
+    getPages();
+    getLanguage();
+    getIsRead();
+    getRating();
+
+    const answer =
+    (title !== "")
+    && (year !== "")
+    && (author !== "")
+    && (pages !== "")
+    && (language !== "")
+    && ((rating !== "") && (rating <= 5));
+    
+    return answer;
 }
 
 function addBookToLibrary (book) {
@@ -49,10 +90,12 @@ function resetForm() {
 (function enableSubmissions() {
     const submitButton = document.getElementById("submit-button");
     submitButton.addEventListener("click", () => {
-        createBook();
-        addBookToLibrary(newBook);
-        createAndDisplayCard(newBook);
-        resetForm();
+        if (allFieldsAreFilled()) {
+            createBook();
+            addBookToLibrary(newBook);
+            createAndDisplayCard(newBook);
+            resetForm();
+        }
     });
 })();
 
