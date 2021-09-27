@@ -88,9 +88,13 @@ function createAndDisplayCard(book) {
 
     // Content pre-formatting
     let statusDisplay;
-    book.isRead ?
+    setStatusDisplay();
+
+    function setStatusDisplay() {
+        book.isRead ?
         statusDisplay = "Read" :
         statusDisplay = "Currently reading";
+    }
 
     let ratingDisplay = "";
     for (count = 0; count < book.rating; count++) {
@@ -99,8 +103,12 @@ function createAndDisplayCard(book) {
 
     // Content
     const cardContent = document.createElement("p");
-    cardContent.textContent = `${ratingDisplay} | ${book.pages} pages | ${book.language} | ${statusDisplay}`;
     cardContent.classList.add("cardContent");
+    setCardContent();
+
+    function setCardContent() {
+        cardContent.textContent = `${ratingDisplay} | ${book.pages} pages | ${book.language} | ${statusDisplay}`;
+    }
 
     // Actions subcontainer
     const cardOptions = document.createElement("div");
@@ -110,7 +118,7 @@ function createAndDisplayCard(book) {
     // Actions
     (function createDeleteIcon() {
         deleteIcon.classList.add("delete-icon");
-        deleteIcon.setAttribute("src", "deleteIcon.svg");
+        deleteIcon.setAttribute("src", "icon-delete.svg");
         deleteIcon.setAttribute("id", idOfNewBook);
         deleteIcon.setAttribute("data-value", valueOfNewBook);
     })();
@@ -126,13 +134,32 @@ function createAndDisplayCard(book) {
         });
     })();
 
-    (function createButtonToggleIsRead() {
-        const buttonToToggleIsRead = document.createElement("button");
-        buttonToToggleIsRead.setAttribute("data-value", valueOfNewBook);
-        buttonToToggleIsRead.addEventListener("click", () => {
-            book.toggleIsRead();
-        });
+    function updateStatusDisplay() {
+        setStatusDisplay();
+        setCardContent();
+    }
+
+    (function createButtonToToggleIsRead() {
+        const buttonToToggleIsRead = document.createElement("img");
         cardOptions.appendChild(buttonToToggleIsRead);
+
+        function enableButtonToToggleIsRead() {
+            buttonToToggleIsRead.setAttribute("data-value", valueOfNewBook);
+            buttonToToggleIsRead.addEventListener("click", () => {
+                book.toggleIsRead();
+                updateToggleBtnAppearance();
+                updateStatusDisplay();
+            });
+        }
+
+        function updateToggleBtnAppearance() {
+            book.isRead == true ?
+              buttonToToggleIsRead.setAttribute("src", "icon-read.svg") :
+              buttonToToggleIsRead.setAttribute("src", "icon-unread.svg");
+        }
+
+        enableButtonToToggleIsRead();
+        updateToggleBtnAppearance();
     })();
 
     setIdOfNewBook();
