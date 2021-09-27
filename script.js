@@ -11,6 +11,14 @@ function Book(title, year, author, pages, language, isRead, rating) {
     this.language = language;
     this.isRead = isRead;
     this.rating = rating;
+    this.toggleIsRead = function() {
+        if (this.isRead == true) {
+            this.isRead = false
+        }
+        else {
+            this.isRead = true
+        }
+    }
 }
 
 function getValueOf(elementId) {
@@ -118,6 +126,15 @@ function createAndDisplayCard(book) {
         });
     })();
 
+    (function createButtonToggleIsRead() {
+        const buttonToToggleIsRead = document.createElement("button");
+        buttonToToggleIsRead.setAttribute("data-value", valueOfNewBook);
+        buttonToToggleIsRead.addEventListener("click", () => {
+            book.toggleIsRead();
+        });
+        cardOptions.appendChild(buttonToToggleIsRead);
+    })();
+
     setIdOfNewBook();
 
     gallery.appendChild(newCard);
@@ -125,8 +142,8 @@ function createAndDisplayCard(book) {
     cardMain.appendChild(cardH1);
     cardMain.appendChild(cardH2);
     cardMain.appendChild(cardContent);
-    newCard .appendChild(cardOptions)
-            .appendChild(deleteIcon);
+    newCard .appendChild(cardOptions);
+    cardOptions.appendChild(deleteIcon);
 }
 
 (function showForm() {
