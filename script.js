@@ -3,7 +3,7 @@ let idOfNewBook = 0;
 const modal = document.getElementById("modal-box");
 const gallery = document.querySelector(".gallery");
 
-function Book(title, year, author, pages, language, isRead, rating) {
+function Book({title, year, author, pages, language, isRead, rating}) {
     this.title = title;
     this.year = year;
     this.author = author;
@@ -12,12 +12,8 @@ function Book(title, year, author, pages, language, isRead, rating) {
     this.isRead = isRead;
     this.rating = rating;
     this.toggleIsRead = function() {
-        if (this.isRead == true) {
-            this.isRead = false
-        }
-        else {
-            this.isRead = true
-        }
+        if (this.isRead == true) { this.isRead = false }
+        else { this.isRead = true }
     }
 }
 
@@ -27,7 +23,7 @@ function getValueOf(elementId) {
 }
 
 function createBook() {
-    return newBook = new Book(title, year, author, pages, language, isRead, rating);
+    return newBook = new Book({title, year, author, pages, language, isRead, rating});
 }
 
 function getTitle() {
@@ -58,7 +54,7 @@ function getRating() {
     return rating = getValueOf("rating-input");
 }
 
-function allFieldsAreFilled() {
+function getFormInput() {
     getTitle();
     getYear();
     getAuthor();
@@ -66,16 +62,11 @@ function allFieldsAreFilled() {
     getLanguage();
     getIsRead();
     getRating();
+}
 
-    const answer =
-    (title !== "")
-    && (year !== "")
-    && (author !== "")
-    && (pages !== "")
-    && (language !== "")
-    && ((rating !== "") && (rating <= 5));
-    
-    return answer;
+function allFieldsAreFilled() {
+    getFormInput();
+    return answer = (title !== "") && (year !== "") && (author !== "") && (pages !== "") && (language !== "") && ((rating !== "") && (rating <= 5));
 }
 
 function addBookToLibrary (book) {
