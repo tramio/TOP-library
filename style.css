@@ -156,6 +156,10 @@ input {
         width: 10em;
     }
 
+    ::placeholder {
+        color: #6b6d5e;
+    }
+
 /* Hide number input arrows */
     /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
