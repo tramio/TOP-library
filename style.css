@@ -3,15 +3,9 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: #eae9e5;
+    font-family: 'Open Sans', sans-serif !important;
     line-height: 1.5em !important;
     color: #6b6d5e;
-}
-
-body,
-button,
-input {
-    font-family: 'Open Sans', sans-serif !important;
-    font-size: 1em;
 }
 
 main {
@@ -22,11 +16,6 @@ main {
     justify-content: center;
     align-items: center;
     border-radius: 15px;
-}
-
-button,
-input {
-    color: #eae9e5;
 }
 
 /* Main blocks */
@@ -114,6 +103,8 @@ input {
 
 /* Buttons */
     .button {
+        font-family: 'Open Sans', sans-serif !important;
+        font-size: 1em;
         background-color: #977466;
         height: 50px;
         width: 100%;
@@ -121,6 +112,7 @@ input {
         border-style: dotted;
         transition: background-color 0.3s;
         cursor: pointer;
+        color: #eae9e5;
     }
 
     .button:hover {
@@ -147,6 +139,7 @@ input {
 
     input {
         width: 10em;
+        color: #6b6d5e;
     }
 
     ::placeholder {
