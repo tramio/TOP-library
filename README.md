@@ -6,7 +6,12 @@
 
 **Where?** See it live [on GitHub Pages](https://tramio.github.io/TOP-library/).
 
+## Preview:
+Modal form:
+![](preview-1.png)
 
+Library filled with a few books:
+![ha](preview-2.png)
 
 ## Challenges:
 - This was my first time using objects and object constructors in a project. Creating the very first functions took me lots of googling!
