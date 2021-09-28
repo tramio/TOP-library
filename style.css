@@ -10,9 +10,15 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: #eae9e5;
-    font-family: 'Open Sans', sans-serif !important;
     line-height: 1.5em !important;
     color: #6b6d5e;
+}
+
+body,
+button,
+input {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 1em;
 }
 
 main {
@@ -23,6 +29,11 @@ main {
     justify-content: center;
     align-items: center;
     border-radius: 15px;
+}
+
+button,
+input {
+    color: #eae9e5;
 }
 
 /* Main blocks */
@@ -46,6 +57,12 @@ main {
 .sidebar h1,
 .sidebar p {
     padding: 20px 10px 0;
+    text-align: center;
+}
+
+.sidebar h1 {
+    font-weight: 700;
+    font-size: 1.4em;
 }
 
     /* Avatar picture */
@@ -136,7 +153,7 @@ main {
     }
 
     input {
-        width: 100px;
+        width: 10em;
     }
 
 /* Hide number input arrows */
