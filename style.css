@@ -1,10 +1,3 @@
-/* TOC
-1. Main elements
-2. Sidebar
-3. Content
-*/
-
-
 /* Main elements*/
 body {
     width: 100vw;
@@ -159,6 +152,35 @@ input {
     ::placeholder {
         color: #6b6d5e;
     }
+
+/* Footer */
+footer {
+    display: absolute;
+    height: 5vh;
+    text-align: center;
+}
+
+a:hover {
+    background-position: bottom 1px left 0;
+    background-size: 100% 2px;
+    color: rgb(201, 174, 163);
+}
+
+a:active {
+    color: rgb(201, 174, 163);
+}
+
+a {
+    background: rgb(151,116,102);
+    background: radial-gradient(circle, rgba(151,116,102,1) 0%, rgba(172,145,121,1) 48%, rgba(255,243,232,1) 98%);    background-position: bottom 0 left 0;
+    background-repeat: no-repeat;
+    background-size: 0% 0px;
+    padding-bottom: 3px;
+    transition: background-size .2s, background-position .15s, color .5s;
+    font-weight: 700 !important;
+    text-decoration: none;
+    color: rgb(151,116,102);
+}
 
 /* Hide number input arrows */
     /* Chrome, Safari, Edge, Opera */
