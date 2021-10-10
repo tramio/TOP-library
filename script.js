@@ -3,23 +3,24 @@ let idOfNewBook = 0;
 const modal = document.getElementById("modal-box");
 const gallery = document.querySelector(".gallery");
 
-function Book({title, year, author, pages, language, isRead, rating}) {
-    this.title = title;
-    this.year = year;
-    this.author = author;
-    this.pages = Number(pages);
-    this.language = language;
-    this.isRead = isRead;
-    this.rating = rating;
-    this.toggleIsRead = function() {
+class Book {
+    constructor({title, year, author, pages, language, isRead, rating}) {
+        this.title = title;
+        this.year = year;
+        this.author = author;
+        this.pages = Number(pages);
+        this.language = language;
+        this.isRead = isRead;
+        this.rating = rating;
+    }
+    toggleIsRead() {
         if (this.isRead == true) { this.isRead = false }
         else { this.isRead = true }
     }
 }
 
 function getValueOf(elementId) {
-    const elementValue = document.getElementById(elementId).value;
-    return elementValue;
+    return document.getElementById(elementId).value;
 }
 
 function createBook() {
